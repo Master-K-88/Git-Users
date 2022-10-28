@@ -31,6 +31,9 @@
 		93CF5FE1290B7B520028F7E9 /* UserModelFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CF5FE0290B7B520028F7E9 /* UserModelFileManager.swift */; };
 		93CF5FE4290BCCE30028F7E9 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CF5FE3290BCCE30028F7E9 /* DetailViewController.swift */; };
 		93CF5FE6290BDF9D0028F7E9 /* UserServiceFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CF5FE5290BDF9D0028F7E9 /* UserServiceFileManager.swift */; };
+		93CF5FE8290C05160028F7E9 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CF5FE7290C05160028F7E9 /* DetailViewModel.swift */; };
+		93CF5FEA290C05480028F7E9 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CF5FE9290C05480028F7E9 /* DetailModel.swift */; };
+		93CF5FEC290C09200028F7E9 /* UserDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CF5FEB290C09200028F7E9 /* UserDetailService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +61,9 @@
 		93CF5FE0290B7B520028F7E9 /* UserModelFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelFileManager.swift; sourceTree = "<group>"; };
 		93CF5FE3290BCCE30028F7E9 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		93CF5FE5290BDF9D0028F7E9 /* UserServiceFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceFileManager.swift; sourceTree = "<group>"; };
+		93CF5FE7290C05160028F7E9 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		93CF5FE9290C05480028F7E9 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
+		93CF5FEB290C09200028F7E9 /* UserDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				93CF5FBD290B1D1B0028F7E9 /* UserModel.swift */,
+				93CF5FE9290C05480028F7E9 /* DetailModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -131,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				93CF5FC4290B23370028F7E9 /* UserService.swift */,
+				93CF5FEB290C09200028F7E9 /* UserDetailService.swift */,
 				93CF5FE5290BDF9D0028F7E9 /* UserServiceFileManager.swift */,
 			);
 			path = ServiceManager;
@@ -195,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				93CF5FE3290BCCE30028F7E9 /* DetailViewController.swift */,
+				93CF5FE7290C05160028F7E9 /* DetailViewModel.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -279,6 +288,7 @@
 				93CF5FB7290B190E0028F7E9 /* NetworkManager.swift in Sources */,
 				93CF5FC9290B271F0028F7E9 /* HomeViewModel.swift in Sources */,
 				93CF5FBE290B1D1B0028F7E9 /* UserModel.swift in Sources */,
+				93CF5FEC290C09200028F7E9 /* UserDetailService.swift in Sources */,
 				93CF5FAF290B138D0028F7E9 /* TabbarController.swift in Sources */,
 				93CF5FDB290B3E430028F7E9 /* UserCell.swift in Sources */,
 				93CF5FC0290B1DA60028F7E9 /* GithubUserAPIEndpoint.swift in Sources */,
@@ -292,9 +302,11 @@
 				93CF5FD6290B30820028F7E9 /* Extensions.swift in Sources */,
 				93CF5FDD290B52070028F7E9 /* UserCellImageDownloader.swift in Sources */,
 				72B445852909EFF00047905C /* SceneDelegate.swift in Sources */,
+				93CF5FE8290C05160028F7E9 /* DetailViewModel.swift in Sources */,
 				93CF5FBB290B1CEC0028F7E9 /* GithubUserAPIProtocol.swift in Sources */,
 				93CF5FB9290B1B810028F7E9 /* NetworkError.swift in Sources */,
 				93CF5FE1290B7B520028F7E9 /* UserModelFileManager.swift in Sources */,
+				93CF5FEA290C05480028F7E9 /* DetailModel.swift in Sources */,
 				93CF5FCB290B273C0028F7E9 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

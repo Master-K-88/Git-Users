@@ -1,42 +1,41 @@
 //
-//  HomeViewModel.swift
+//  DetailViewModel.swift
 //  Github Users
 //
-//  Created by Oko-osi Korede on 27/10/2022.
+//  Created by Oko-osi Korede on 28/10/2022.
 //
 
 import Foundation
 import Combine
 
-class HomeViewModel {
-    
+class DetailViewModel {
     private var userServiceFileManager = UserServiceFileManager.instance
     var manager: UserModelFileManager = UserModelFileManager.instance
     private var userStoredData: [String] = []
     
+    var detailEndpoint: String
     var counter: Int = 0
-//    @Published var userCellViewModels = [UserCellImageDownloader]()
-    @Published var userProfiles = [UserModel]()
+    @Published var userCellViewModels = [UserCellImageDownloader]()
+    @Published var userDetail: DetailModel?
     private var subscriptions: Set<AnyCancellable> = Set<AnyCancellable>()
-    let userService: GithubUserAPIProtocol = UserService()
-    var isPaginating: Bool = false
+    let userDetailService: GithubUserDetailAPIProtocol = UserDetailService()
     
-    init() {
-        getSavedData()
+    init(endPoint: String) {
+        detailEndpoint = endPoint
+//        getSavedData()
+        fetchData()
         
     }
     
     func fetchData() {
-        guard userProfiles.count < 890 else { return }
-        let endpoint = GithubUserAPIEndpoint.allUser.API + String((userProfiles.count / 30) + 1)
-        userService.fetchData(endpoint: endpoint)
+        userDetailService.fetchData(endpoint: detailEndpoint)
             .receive(on: RunLoop.main)
-            .sink { [weak self] completion in
+            .sink { completion in
+                print("An error occured")
                 print(completion)
-                self?.counter = 0
             } receiveValue: { [weak self] model in
-                self?.userProfiles.append(contentsOf: model)
-                print("The result from the network call is: \(model)")
+                self?.userDetail = model
+//                print("The detail result from the network call is: \(model)")
             }
             .store(in: &subscriptions)
 
@@ -62,13 +61,13 @@ class HomeViewModel {
             if self.userStoredData.isEmpty {
                 self.fetchData()
             } else {
-                for imageKey in self.userStoredData {
-                    if let userData = self.manager.getCahce(key: imageKey) {
-                        print("Getting saved image! \(userData)")
-                        let userData = UserModel(id: Double(userData.id) ?? 0, username: userData.username, avatar: nil, userType: userData.userType, userInfo: String(userData.id) + "detail")
-                        self.userProfiles.append(userData)
-                    }
-                }
+//                for imageKey in self.userStoredData {
+//                    if let userData = self.manager.getCahce(key: imageKey) {
+//                        print("Getting saved image! \(userData)")
+//                        let userData = UserModel(id: Double(userData.id) ?? 0, username: userData.username, avatar: nil, userType: userData.userType, userInfo: String(userData.id) + "detail")
+//                        self.userDetail.append(userData)
+//                    }
+//                }
             }
         }
     }

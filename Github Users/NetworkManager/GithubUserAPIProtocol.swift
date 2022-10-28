@@ -12,6 +12,6 @@ protocol GithubUserAPIProtocol {
     func fetchData(endpoint: String) -> Future<[UserModel], Error>
 }
 
-protocol GithubUserImageAPIProtocol {
-    func fetchData(endpoint: String) -> Future<Data, Error>
+protocol GithubUserDetailAPIProtocol {
+    func fetchData(endpoint: String) -> Future<DetailModel, Error>
 }

@@ -8,11 +8,15 @@
 import Foundation
 enum GithubUserAPIEndpoint {
     case development
+    case allUser
+    
     
     var API: String {
         switch self {
         case .development:
-            return "https://api.github.com/search/users?q=lagos&page="
+            return "https://api.github.com"
+        case .allUser:
+            return "/search/users?q=lagos&page="
         }
     }
 }

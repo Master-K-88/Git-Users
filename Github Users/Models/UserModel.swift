@@ -15,11 +15,13 @@ struct UserModel: Identifiable, Codable {
     let username: String
     let avatar: String?
     let userType: String
+    let userInfo: String
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case username = "login"
         case avatar = "avatar_url"
         case userType = "type"
+        case userInfo = "url"
     }
 }

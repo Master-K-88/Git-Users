@@ -66,6 +66,15 @@ extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let detailVC = DetailViewController()
+        let model = self.viewModel.userProfiles[indexPath.row]
+        let rawEndpoint = model.userInfo
+        let endpointWithCom = rawEndpoint.split(separator: ".")[2]
+        let endpoint = endpointWithCom.suffix(endpointWithCom.count - 3)
+        print("The endpoint is: \(endpoint)")
+//        let picData = viewModel.userCellViewModels[indexPath.row].image
+        detailVC.detailViewModel = DetailViewModel(endPoint: String(endpoint))
+        detailVC.imageLoader = UserCellImageDownloader(model: UserModel(id: model.id, username: model.username, avatar: model.avatar, userType: model.userType, userInfo: model.userInfo))
+//        detailVC.userProfilePic.image = picData
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }
