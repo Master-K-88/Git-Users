@@ -13,7 +13,7 @@ struct GithubUserModel: Codable {
 struct UserModel: Identifiable, Codable {
     let id: Double
     let username: String
-    let avatar: String
+    let avatar: String?
     let userType: String
     
     enum CodingKeys: String, CodingKey {

@@ -10,7 +10,7 @@ import Combine
 
 class UserCell: UITableViewCell {
     
-    var userCellViewModel: UserCellViewModel?
+    var userCellViewModel: UserCellImageDownloader?
     
     static let identifier = "UserCell"
     
@@ -34,6 +34,11 @@ class UserCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        userImageView.image = UIImage(named: "default")
     }
     
     private func setupUI() {
@@ -79,8 +84,8 @@ class UserCell: UITableViewCell {
         userTypeText.setViewConstraints(top: userNameText.bottomAnchor, right: nil, bottom: nil, left: userTypeLabel.trailingAnchor, paddingTop: 10, paddingLeft: 10)
     }
     func configure(with userName: String,_ userType: String) {
-        userNameText.text = userName
-        userTypeText.text = userType
+        userNameText.text = userCellViewModel?.userData?.username ?? ""
+        userTypeText.text = userCellViewModel?.userData?.userType
         
         userCellViewModel?.$image
             .receive(on: RunLoop.main)

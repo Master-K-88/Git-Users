@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .green
+//        view.backgroundColor = .green
         self.navigationItem.title = "All Users"
         view.addSubview(tableView)
         
@@ -54,15 +54,20 @@ extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.identifier, for: indexPath) as? UserCell else { return UITableViewCell() }
-        cell.userCellViewModel = UserCellViewModel(url: viewModel.userProfiles[indexPath.row].avatar, key: String(viewModel.userProfiles[indexPath.row].id))
-        cell.configure(with: viewModel.userProfiles[indexPath.row].username, viewModel.userProfiles[indexPath.row].userType)
+        let userData = viewModel.userProfiles[indexPath.row]
+        cell.userCellViewModel = UserCellImageDownloader(model: userData)
+        cell.configure(with: viewModel.userProfiles[indexPath.row].username ?? "", viewModel.userProfiles[indexPath.row].userType)
         return cell
     }
     
 }
 
 extension HomeViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        let detailVC = DetailViewController()
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
 
 extension HomeViewController: UIScrollViewDelegate {
@@ -79,7 +84,6 @@ extension HomeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
         if position > (tableView.contentSize.height - 100 - scrollView.frame.size.height) {
-            print("Fetch new data")
             self.tableView.tableFooterView = createLoaderView()
             viewModel.counter += 1
             guard viewModel.counter < 2 else { return }

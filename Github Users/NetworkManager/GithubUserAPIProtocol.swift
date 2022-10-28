@@ -9,5 +9,9 @@ import Foundation
 import Combine
 
 protocol GithubUserAPIProtocol {
-    func fetchData(endpoint: String) -> Future<UserModel, Error>
+    func fetchData(endpoint: String) -> Future<[UserModel], Error>
+}
+
+protocol GithubUserImageAPIProtocol {
+    func fetchData(endpoint: String) -> Future<Data, Error>
 }
