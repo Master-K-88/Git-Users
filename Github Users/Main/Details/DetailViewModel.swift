@@ -14,35 +14,26 @@ class DetailViewModel {
     private var userStoredData: [String] = []
     
     var detailEndpoint: String
-    var counter: Int = 0
-    @Published var userCellViewModels = [UserCellImageDownloader]()
     @Published var userDetail: DetailModel?
     private var subscriptions: Set<AnyCancellable> = Set<AnyCancellable>()
     let userDetailService: GithubUserDetailAPIProtocol = UserDetailService()
     
     init(endPoint: String) {
         detailEndpoint = endPoint
-//        getSavedData()
         fetchData()
-        
     }
     
     func fetchData() {
-        userDetailService.fetchData(endpoint: detailEndpoint)
-            .receive(on: RunLoop.main)
-            .sink { completion in
-                print("An error occured")
-                print(completion)
-            } receiveValue: { [weak self] model in
-                self?.userDetail = model
-//                print("The detail result from the network call is: \(model)")
-            }
-            .store(in: &subscriptions)
-
-    }
-    
-    func paginating() {
-            fetchData()
+        if !detailEndpoint.isEmpty {
+            userDetailService.fetchData(endpoint: detailEndpoint)
+                .receive(on: RunLoop.main)
+                .sink { completion in
+                    print("An error occured")
+                    print(completion)
+                } receiveValue: { [weak self] model in
+                    self?.userDetail = model            }
+                .store(in: &subscriptions)
+        }
     }
     
     func getSavedData() {

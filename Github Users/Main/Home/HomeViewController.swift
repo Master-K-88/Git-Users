@@ -56,7 +56,7 @@ extension HomeViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.identifier, for: indexPath) as? UserCell else { return UITableViewCell() }
         let userData = viewModel.userProfiles[indexPath.row]
         cell.userCellViewModel = UserCellImageDownloader(model: userData)
-        cell.configure(with: viewModel.userProfiles[indexPath.row].username ?? "", viewModel.userProfiles[indexPath.row].userType)
+        cell.configure(with: viewModel.userProfiles[indexPath.row].username ?? "", viewModel.userProfiles[indexPath.row].userType ?? "")
         return cell
     }
     
@@ -65,10 +65,12 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+//        var endpoint: String
         let detailVC = DetailViewController()
         let model = self.viewModel.userProfiles[indexPath.row]
         let rawEndpoint = model.userInfo
-        let endpointWithCom = rawEndpoint.split(separator: ".")[2]
+        guard let endpointWithCom1 = rawEndpoint?.split(separator: "."), endpointWithCom1.count > 2 else { return }
+        let endpointWithCom = endpointWithCom1[2]
         let endpoint = endpointWithCom.suffix(endpointWithCom.count - 3)
         print("The endpoint is: \(endpoint)")
 //        let picData = viewModel.userCellViewModels[indexPath.row].image

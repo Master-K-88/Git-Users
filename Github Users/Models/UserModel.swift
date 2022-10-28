@@ -12,10 +12,10 @@ struct GithubUserModel: Codable {
 }
 struct UserModel: Identifiable, Codable {
     let id: Double
-    let username: String
+    let username: String?
     let avatar: String?
-    let userType: String
-    let userInfo: String
+    let userType: String?
+    let userInfo: String?
     
     enum CodingKeys: String, CodingKey {
         case id = "id"

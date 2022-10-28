@@ -139,7 +139,6 @@
 			children = (
 				93CF5FC4290B23370028F7E9 /* UserService.swift */,
 				93CF5FEB290C09200028F7E9 /* UserDetailService.swift */,
-				93CF5FE5290BDF9D0028F7E9 /* UserServiceFileManager.swift */,
 			);
 			path = ServiceManager;
 			sourceTree = "<group>";
@@ -186,6 +185,7 @@
 			children = (
 				93CF5FD5290B30820028F7E9 /* Extensions.swift */,
 				93CF5FE0290B7B520028F7E9 /* UserModelFileManager.swift */,
+				93CF5FE5290BDF9D0028F7E9 /* UserServiceFileManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";

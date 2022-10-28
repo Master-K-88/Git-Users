@@ -50,7 +50,7 @@ class UserCellImageDownloader: GetSavedDataProtocol {
                 guard let self = self,
                       let data = returnedImage else { return }
                 self.image = UIImage(data: data)
-                let storedUserData = UserCellModel(id: String(self.userData?.id ?? 0), username: self.userData?.username ?? "", avatarUrl: data, userType: self.userData?.userType ?? "")
+                let storedUserData = UserCellModel(id: String(self.userData?.id ?? 0), username: self.userData?.username ?? "", avatarUrl: data, userType: self.userData?.userType ?? "", userInfo: self.userData?.userInfo ?? "")
                 self.manager.add(key: self.imageKey, value: storedUserData)
             }
             .store(in: &cancellables)
@@ -78,5 +78,5 @@ struct UserCellModel: Identifiable, Codable {
     let username: String
     let avatarUrl: Data
     let userType: String
-    
+    let userInfo: String
 }
