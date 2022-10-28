@@ -8,8 +8,18 @@
 import Foundation
 
 struct GithubUserModel: Codable {
-    let results: [UserModel]
+    let items: [UserModel]
 }
-struct UserModel: Codable {
+struct UserModel: Identifiable, Codable {
+    let id: Double
     let username: String
+    let avatar: String
+    let userType: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case username = "login"
+        case avatar = "avatar_url"
+        case userType = "type"
+    }
 }

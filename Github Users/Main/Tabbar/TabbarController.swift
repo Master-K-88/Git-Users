@@ -18,11 +18,14 @@ class TabbarController: UITabBarController {
     
     func tabs() {
         
-        let homeVC = HomeViewController()
+        let homeVC = UINavigationController(rootViewController: HomeViewController())
+        homeVC.setupNavBar()
         
-        let favouriteVC = FavouriteViewController()
+        let favouriteVC = UINavigationController(rootViewController: FavouriteViewController())
+        favouriteVC.setupNavBar()
         
-        let homeItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
+        
+        let homeItem = UITabBarItem(title: "Users", image: UIImage(systemName: "person.3"), tag: 0)
         let favouriteItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
         
         homeVC.tabBarItem = homeItem
