@@ -9,15 +9,16 @@ import Foundation
 
 struct DetailModel: Codable {
     let id: Double
-    var username: String = ""
+    var username: String? = ""
     var avatar: String?
-    var userType: String = ""
-    var userInfo: String = ""
-    var location: String = ""
-    var fullName: String = ""
-    var company: String = ""
-    var bio: String = ""
-    var twitter: String = ""
+    var userType: String? = ""
+    var userInfo: String? = ""
+    var location: String? = ""
+    var fullName: String? = ""
+    var company: String? = ""
+    var bio: String? = ""
+    var email: String? = ""
+    var twitter: String? = ""
     var favourite: Bool = false
     
     enum CodingKeys: String, CodingKey {
@@ -30,6 +31,7 @@ struct DetailModel: Codable {
         case fullName = "name"
         case company = "company"
         case bio = "bio"
+        case email = "email"
         case twitter = "twitter_username"
     }
 }

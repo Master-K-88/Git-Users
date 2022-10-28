@@ -14,7 +14,7 @@ class DetailViewController: UIViewController {
     
     private lazy var bgView = UIView.bgView()
     private lazy var imageBGView = UIView.customShadowView()
-    private lazy var userNameProfileTitle = UILabel.textLabel(fontSize: 18)
+    private lazy var userNameProfileTitle = UILabel.textLabel(fontSize: 24)
     lazy var userProfilePic = UIImageView()
     
     private lazy var userTypeLabel = UILabel.infoLabel(text: "User Type: ", fontSize: 16)
@@ -111,7 +111,7 @@ class DetailViewController: UIViewController {
         userNameProfileTitle.setCenterAnchor(vertical: nil, horizontal: bgView.centerXAnchor, height: nil, width: nil)
         userNameProfileTitle.setViewConstraints(top: view.safeTopAnchor, right: nil, bottom: nil, left: nil, paddingTop: 20)
         userNameProfileTitle.text = "Testing"
-        userNameProfileTitle.font = .systemFont(ofSize: 16, weight: .black)
+        userNameProfileTitle.font = .systemFont(ofSize: 24, weight: .black)
         userNameProfileTitle.textColor = UIColor.label
     }
     
@@ -126,7 +126,7 @@ class DetailViewController: UIViewController {
     }
     
     func setupUserType() {
-        userTypeLabel.setViewConstraints(top: imageBGView.bottomAnchor, right: nil, bottom: nil, left: bgView.leadingAnchor, paddingTop: 40, paddingLeft: 40)
+        userTypeLabel.setViewConstraints(top: imageBGView.bottomAnchor, right: nil, bottom: nil, left: bgView.leadingAnchor, paddingTop: 35, paddingLeft: 40)
         
         userTypeText.setViewConstraints(top: userTypeLabel.topAnchor, right: nil, bottom: nil, left: userTypeLabel.trailingAnchor, paddingLeft: 20)
         userTypeText.text = "TESTING VALUE"
@@ -134,7 +134,7 @@ class DetailViewController: UIViewController {
     }
     
     func setupFullName() {
-        fullNameLabel.setViewConstraints(top: userTypeLabel.bottomAnchor, right: nil, bottom: nil, left: userTypeLabel.leadingAnchor, paddingTop: 35)
+        fullNameLabel.setViewConstraints(top: userTypeLabel.bottomAnchor, right: nil, bottom: nil, left: userTypeLabel.leadingAnchor, paddingTop: 25)
         fullNameLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         
         fullNameText.setViewConstraints(top: fullNameLabel.topAnchor, right: nil, bottom: nil, left: userTypeText.leadingAnchor)
@@ -142,7 +142,7 @@ class DetailViewController: UIViewController {
     }
     
     func setupCompany() {
-        companyLabel.setViewConstraints(top: fullNameLabel.bottomAnchor, right: nil, bottom: nil, left: fullNameLabel.leadingAnchor, paddingTop: 35)
+        companyLabel.setViewConstraints(top: fullNameLabel.bottomAnchor, right: nil, bottom: nil, left: fullNameLabel.leadingAnchor, paddingTop: 25)
         companyLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         
         companyText.setViewConstraints(top: companyLabel.topAnchor, right: nil, bottom: nil, left: userTypeText.leadingAnchor)
@@ -150,7 +150,7 @@ class DetailViewController: UIViewController {
     }
     
     func setupLocation() {
-        locationLabel.setViewConstraints(top: companyLabel.bottomAnchor, right: nil, bottom: nil, left: companyLabel.leadingAnchor, paddingTop: 35)
+        locationLabel.setViewConstraints(top: companyLabel.bottomAnchor, right: nil, bottom: nil, left: companyLabel.leadingAnchor, paddingTop: 25)
         locationLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         
         locationText.setViewConstraints(top: locationLabel.topAnchor, right: nil, bottom: nil, left: userTypeText.leadingAnchor)
@@ -162,16 +162,17 @@ class DetailViewController: UIViewController {
     }
     
     func setupBio() {
-        bioLabel.setViewConstraints(top: locationLabel.bottomAnchor, right: nil, bottom: nil, left: locationLabel.leadingAnchor, paddingTop: 35)
+        bioLabel.setViewConstraints(top: locationLabel.bottomAnchor, right: nil, bottom: nil, left: locationLabel.leadingAnchor, paddingTop: 25)
         bioLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         
-        bioText.setViewConstraints(top: bioLabel.topAnchor, right: nil, bottom: nil, left: userTypeText.leadingAnchor)
+        bioText.setViewConstraints(top: bioLabel.topAnchor, right: bgView.trailingAnchor, bottom: nil, left: userTypeText.leadingAnchor, paddingRight: 20)
         bioText.text = "TESTING VALUE"
+        bioText.numberOfLines = 0
         
     }
     
     func setupTwitter() {
-        twitterLabel.setViewConstraints(top: bioLabel.bottomAnchor, right: nil, bottom: nil, left: bioLabel.leadingAnchor, paddingTop: 35)
+        twitterLabel.setViewConstraints(top: bioLabel.bottomAnchor, right: nil, bottom: nil, left: bioLabel.leadingAnchor, paddingTop: 40)
         twitterLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         
         twitterText.setViewConstraints(top: twitterLabel.topAnchor, right: nil, bottom: nil, left: userTypeText.leadingAnchor)
@@ -179,7 +180,7 @@ class DetailViewController: UIViewController {
     }
     
     func configureView() {
-        userNameProfileTitle.text = detailViewModel?.userDetail?.username ?? ""
+        userNameProfileTitle.text = detailViewModel?.userDetail?.username?.uppercased() ?? ""
         
         imageLoader?.$image
             .receive(on: RunLoop.main)
@@ -189,6 +190,15 @@ class DetailViewController: UIViewController {
                 self.userProfilePic.image = image
             })
             .store(in: &cancellables)
+        
+        userTypeText.text = detailViewModel?.userDetail?.userType ?? "Not Available"
+        fullNameText.text = detailViewModel?.userDetail?.fullName ?? "Not Available"
+        companyText.text = detailViewModel?.userDetail?.company ?? "Not Available"
+        
+        locationText.text = detailViewModel?.userDetail?.location ?? "Not Available"
+        emailText.text = detailViewModel?.userDetail?.email ?? "Not Available"
+        bioText.text = detailViewModel?.userDetail?.bio ?? "Not Available"
+        twitterText.text = "@\(detailViewModel?.userDetail?.twitter ?? "")"
     }
 
 }
