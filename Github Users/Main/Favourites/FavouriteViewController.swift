@@ -13,6 +13,8 @@ class FavouriteViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .purple
+        self.navigationItem.title = "Favourite Git Users"
+        
         // Do any additional setup after loading the view.
     }
     
