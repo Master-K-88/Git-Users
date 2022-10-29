@@ -7,18 +7,18 @@
 
 import Foundation
 
-struct DetailModel: Codable {
-    let id: Double
-    var username: String? = ""
-    var avatar: String?
-    var userType: String? = ""
-    var userInfo: String? = ""
-    var location: String? = ""
-    var fullName: String? = ""
-    var company: String? = ""
-    var bio: String? = ""
-    var email: String? = ""
-    var twitter: String? = ""
+struct DetailModel: Codable, UserDetailDataProtocol {
+    var id: Double
+    var username: String = ""
+    var avatar: String = ""
+    var userType: String = ""
+    var userInfo: String = ""
+    var location: String = ""
+    var fullName: String = ""
+    var company: String = ""
+    var bio: String = ""
+    var email: String = ""
+    var twitter: String = ""
     var favourite: Bool = false
     
     enum CodingKeys: String, CodingKey {

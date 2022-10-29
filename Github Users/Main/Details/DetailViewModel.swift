@@ -8,58 +8,62 @@
 import Foundation
 import Combine
 
-class DetailViewModel {
-    private var userServiceFileManager = UserServiceFileManager.instance
+class DetailViewModel: ConvertToPesistenceModel {
     var manager: UserModelFileManager = UserModelFileManager.instance
-    private var userStoredData: [String] = []
     
     var detailEndpoint: String
-    @Published var userDetail: DetailModel?
+    @Published var userDetail: UserDetailDataProtocol //= DetailModel(id: 0)
     private var subscriptions: Set<AnyCancellable> = Set<AnyCancellable>()
     let userDetailService: GithubUserDetailAPIProtocol = UserDetailService()
     
-    init(endPoint: String) {
-        detailEndpoint = endPoint
-        fetchData()
+    private let userStorage: PersistenceService = FavGithubUser()
+    
+    init(endPoint: String?, user: UserDetailDataProtocol) {
+        userDetail = user
+        guard let endpointWithCom1 = endPoint?.split(separator: "."), endpointWithCom1.count > 2 else {
+            detailEndpoint = ""
+            return
+        }
+        let endpointWithCom = endpointWithCom1[2]
+        let newEndpoint = endpointWithCom.suffix(endpointWithCom.count - 3)
+        detailEndpoint = String(newEndpoint)
     }
+    
+    func addFavUser() {
+        userDetail.favourite = true
+        let user = convertToPersistenceModel()
+        userStorage.addFavUser(user: user)
+        
+    }
+    
+    func removeuser() {
+        userStorage.removeFavUser(user: userDetail)
+    }
+    
     
     func fetchData() {
         if !detailEndpoint.isEmpty {
             userDetailService.fetchData(endpoint: detailEndpoint)
                 .receive(on: RunLoop.main)
                 .sink { completion in
-                    print("An error occured")
-                    print(completion)
                 } receiveValue: { [weak self] model in
-                    self?.userDetail = model            }
+                    self?.userDetail = model
+                }
                 .store(in: &subscriptions)
         }
+        userDetail = DetailModel(id: 0)
     }
     
     func getSavedData() {
-        userServiceFileManager.$storedData
-            .receive(on: RunLoop.main)
-            .sink { [weak self] storeValue in
-                guard let self = self else { return }
-                self.userStoredData = storeValue
-            }
-            .store(in: &subscriptions)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
             guard let self = self else {
                 return
             }
-            if self.userStoredData.isEmpty {
+            if self.userDetail.fullName.isEmpty {
                 self.fetchData()
-            } else {
-//                for imageKey in self.userStoredData {
-//                    if let userData = self.manager.getCahce(key: imageKey) {
-//                        print("Getting saved image! \(userData)")
-//                        let userData = UserModel(id: Double(userData.id) ?? 0, username: userData.username, avatar: nil, userType: userData.userType, userInfo: String(userData.id) + "detail")
-//                        self.userDetail.append(userData)
-//                    }
-//                }
             }
+            
         }
     }
 }

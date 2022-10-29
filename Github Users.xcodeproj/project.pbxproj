@@ -34,6 +34,8 @@
 		93CF5FE8290C05160028F7E9 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CF5FE7290C05160028F7E9 /* DetailViewModel.swift */; };
 		93CF5FEA290C05480028F7E9 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CF5FE9290C05480028F7E9 /* DetailModel.swift */; };
 		93CF5FEC290C09200028F7E9 /* UserDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CF5FEB290C09200028F7E9 /* UserDetailService.swift */; };
+		93CF5FEE290C2E750028F7E9 /* RealmPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CF5FED290C2E750028F7E9 /* RealmPersistenceService.swift */; };
+		93CF5FF1290C2F880028F7E9 /* PersistUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CF5FF0290C2F880028F7E9 /* PersistUserModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,8 @@
 		93CF5FE7290C05160028F7E9 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		93CF5FE9290C05480028F7E9 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
 		93CF5FEB290C09200028F7E9 /* UserDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailService.swift; sourceTree = "<group>"; };
+		93CF5FED290C2E750028F7E9 /* RealmPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmPersistenceService.swift; sourceTree = "<group>"; };
+		93CF5FF0290C2F880028F7E9 /* PersistUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistUserModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,7 @@
 		93CF5FBC290B1D090028F7E9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				93CF5FEF290C2F740028F7E9 /* PersistenceModels */,
 				93CF5FBD290B1D1B0028F7E9 /* UserModel.swift */,
 				93CF5FE9290C05480028F7E9 /* DetailModel.swift */,
 			);
@@ -186,6 +191,7 @@
 				93CF5FD5290B30820028F7E9 /* Extensions.swift */,
 				93CF5FE0290B7B520028F7E9 /* UserModelFileManager.swift */,
 				93CF5FE5290BDF9D0028F7E9 /* UserServiceFileManager.swift */,
+				93CF5FED290C2E750028F7E9 /* RealmPersistenceService.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -206,6 +212,14 @@
 				93CF5FE7290C05160028F7E9 /* DetailViewModel.swift */,
 			);
 			path = Details;
+			sourceTree = "<group>";
+		};
+		93CF5FEF290C2F740028F7E9 /* PersistenceModels */ = {
+			isa = PBXGroup;
+			children = (
+				93CF5FF0290C2F880028F7E9 /* PersistUserModel.swift */,
+			);
+			path = PersistenceModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,6 +314,8 @@
 				93CF5FE4290BCCE30028F7E9 /* DetailViewController.swift in Sources */,
 				93CF5FCF290B282D0028F7E9 /* FavouriteViewController.swift in Sources */,
 				93CF5FD6290B30820028F7E9 /* Extensions.swift in Sources */,
+				93CF5FEE290C2E750028F7E9 /* RealmPersistenceService.swift in Sources */,
+				93CF5FF1290C2F880028F7E9 /* PersistUserModel.swift in Sources */,
 				93CF5FDD290B52070028F7E9 /* UserCellImageDownloader.swift in Sources */,
 				72B445852909EFF00047905C /* SceneDelegate.swift in Sources */,
 				93CF5FE8290C05160028F7E9 /* DetailViewModel.swift in Sources */,

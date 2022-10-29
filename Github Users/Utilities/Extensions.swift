@@ -11,7 +11,7 @@ import UIKit
 extension UIViewController {
     
     func showToast(message : String, font: UIFont) {
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - CGFloat(Double(message.count) * 4), y: self.view.frame.size.height-100, width: CGFloat(message.count * 8), height: 35))
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - CGFloat(Double(message.count) * 4), y: self.view.frame.size.height * 0.5, width: CGFloat(message.count * 8), height: 35))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
         toastLabel.font = font
@@ -21,11 +21,30 @@ extension UIViewController {
         toastLabel.layer.cornerRadius = 10;
         toastLabel.clipsToBounds  =  true
         self.view.addSubview(toastLabel)
-        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut) {
+        UIView.animate(withDuration: 5.0, delay: 0.1, options: .curveEaseOut) {
             toastLabel.alpha = 0.0
         } completion: {(isCompleted) in
             toastLabel.removeFromSuperview()
         }
+    }
+    
+    
+    func showAlert(title: String, message: String, positive: String, negavite: String? = nil, completion: (() -> Void)? = nil, cancel: (() -> Void)? = nil) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: positive, style: .default, handler: { action in
+            if completion != nil {
+                completion!()
+            }
+        }))
+        if negavite != nil && !negavite!.isEmpty {
+            alert.addAction(UIAlertAction(title: negavite, style: .default, handler: { action in
+                if cancel != nil {
+                    cancel!()
+                }
+            }))
+        }
+        self.present(alert, animated: true)
+        return alert
     }
 }
 

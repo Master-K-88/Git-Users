@@ -62,10 +62,10 @@ class UserCellImageDownloader: GetSavedDataProtocol {
             image = UIImage(data: userData.avatarUrl)
             userName = userData.username
             userType = userData.userType
-            print("Getting saved image! \(userData)")
+//            print("Getting saved image! \(userData)")
         } else {
             downloadImage()
-            print("Downloading Images now!")
+//            print("Downloading Images now!")
         }
         
     }

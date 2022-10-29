@@ -11,6 +11,7 @@ import Combine
 class DetailViewController: UIViewController {
     
     var imageLoader: UserCellImageDownloader?
+    var isFav: Bool = false
     
     private lazy var bgView = UIView.bgView()
     private lazy var imageBGView = UIView.customShadowView()
@@ -66,15 +67,30 @@ class DetailViewController: UIViewController {
     
     func setupBarButton() {
         let favButton = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
-        favButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        favButton.setImage(UIImage(systemName: isFav ? "heart.fill" : "heart"), for: .normal)
         favButton.addTarget(self, action: #selector(favouriteTapped), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: favButton)
-        favButton.tintColor = .black
+        favButton.tintColor = isFav ? .red : .black
     }
     
     @objc func favouriteTapped(_ sender: UIButton) {
-        sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        sender.tintColor = .red
+        guard let userData = detailViewModel?.userDetail else {
+            return
+        }
+        if isFav {
+//            detailViewModel?.userDetail.favourite = false
+            self.showAlert(title: "Fav", message: "You have removed \(userData.username) from your favourite GITHUB users", positive: "Ok")
+            detailViewModel?.removeuser()
+        } else {
+            if !userData.favourite {
+                detailViewModel?.addFavUser()
+                self.showAlert(title: "Fav", message: "You have added \(userData.username) to your favourite GITHUB users", positive: "Ok")
+            } else {
+                self.showAlert(title: "Fav", message: "You have already added \(userData.username) to your favourite GITHUB users", positive: "Ok")
+            }
+            sender.setImage(UIImage(systemName: detailViewModel?.userDetail.favourite ?? false ? "heart.fill": "heart"), for: .normal)
+            sender.tintColor = detailViewModel?.userDetail.favourite ?? false ?  .red : .black
+        }
     }
     
     func setupUI() {
@@ -91,6 +107,7 @@ class DetailViewController: UIViewController {
         setupLocation()
         setupBio()
         setupTwitter()
+        
     }
     
     func setupSubViews() {
@@ -180,7 +197,7 @@ class DetailViewController: UIViewController {
     }
     
     func configureView() {
-        userNameProfileTitle.text = detailViewModel?.userDetail?.username?.uppercased() ?? ""
+        userNameProfileTitle.text = detailViewModel?.userDetail.username.uppercased() ?? ""
         
         imageLoader?.$image
             .receive(on: RunLoop.main)
@@ -188,17 +205,24 @@ class DetailViewController: UIViewController {
                 guard let self = self,
                       let image = image else { return }
                 self.userProfilePic.image = image
+//                self.detailViewModel?.userDetail.avatar =  image.pngData()
             })
             .store(in: &cancellables)
         
-        userTypeText.text = detailViewModel?.userDetail?.userType ?? "Not Available"
-        fullNameText.text = detailViewModel?.userDetail?.fullName ?? "Not Available"
-        companyText.text = detailViewModel?.userDetail?.company ?? "Not Available"
+        userTypeText.text = detailViewModel?.userDetail.userType ?? "Not Available"
+        fullNameText.text = detailViewModel?.userDetail.fullName ?? "Not Available"
+        companyText.text = detailViewModel?.userDetail.company ?? "Not Available"
         
-        locationText.text = detailViewModel?.userDetail?.location ?? "Not Available"
-        emailText.text = detailViewModel?.userDetail?.email ?? "Not Available"
-        bioText.text = detailViewModel?.userDetail?.bio ?? "Not Available"
-        twitterText.text = "@\(detailViewModel?.userDetail?.twitter ?? "")"
+        locationText.text = detailViewModel?.userDetail.location ?? "Not Available"
+        emailText.text = detailViewModel?.userDetail.email ?? "Not Available"
+        bioText.text = detailViewModel?.userDetail.bio ?? "Not Available"
+        twitterText.text = "@\(detailViewModel?.userDetail.twitter ?? "")"
+        
+//        navigationItem.rightBarButtonItem?.image = UIImage
+        let rightButton = navigationItem.rightBarButtonItems
+        rightButton?.first?.image = UIImage(systemName: detailViewModel?.userDetail.favourite ?? false ? "heart.fill" : "heart.fill")
+//        navigationItem.rightBarButtonItem?.image = UIImage(systemName: detailViewModel?.userDetail.favourite ?? false ? "heart.fill" : "heart")
+        navigationItem.rightBarButtonItem?.tintColor = detailViewModel?.userDetail.favourite ?? false ? .red : .black
     }
 
 }

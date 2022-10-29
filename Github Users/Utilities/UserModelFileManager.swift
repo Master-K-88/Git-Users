@@ -21,9 +21,9 @@ class UserModelFileManager: GetPathProtocol {
         if !FileManager.default.fileExists(atPath: url.path) {
             do {
                 try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
-                print("Created folder")
+//                print("Created folder")
             } catch let error {
-                print("Error creating folder. \(error)")
+//                print("Error creating folder. \(error)")
             }
         }
     }
@@ -44,23 +44,23 @@ class UserModelFileManager: GetPathProtocol {
             let writeData = try JSONEncoder().encode(value)
             try writeData.write(to: url, options: [])
         } catch let error {
-            print("Error saving to file manager. \(error)")
+//            print("Error saving to file manager. \(error)")
         }
     }
     
     func getCahce(key: String) -> UserCellModel? {
         guard let fileName = getImagePath(key: key),
               FileManager.default.fileExists(atPath: fileName.path) else { return nil }
-        print("The filepath is \(fileName)")
+//        print("The filepath is \(fileName)")
         do {
             if FileManager.default.fileExists(atPath: fileName.path){
                 let dataJSON = try Data(contentsOf: fileName, options: [])
                 let userData = try JSONDecoder().decode(UserCellModel.self, from: dataJSON)
-                print("The user data is : \(userData)")
+//                print("The user data is : \(userData)")
                 return userData
             }
         } catch (let error) {
-            print("An error: \(error) to get data")
+//            print("An error: \(error) to get data")
         }
         return nil
     }
