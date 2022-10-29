@@ -55,6 +55,7 @@ class DetailViewController: UIViewController {
         view.backgroundColor = .white
         setupUI()
         setupBarButton()
+        detailViewModel?.getSavedData()
         // Do any additional setup after loading the view.
         
         detailViewModel?.$userDetail

@@ -56,11 +56,12 @@ class DetailViewModel: ConvertToPesistenceModel {
     
     func getSavedData() {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
             guard let self = self else {
                 return
             }
-            if self.userDetail.fullName.isEmpty {
+            if let fullName = self.userDetail.fullName, fullName.isEmpty {
+                print("I am making a call")
                 self.fetchData()
             }
             

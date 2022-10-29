@@ -74,19 +74,23 @@ class FavouriteViewController: UIViewController {
     }
     
     @objc func deleteTapped(_ sender: UIButton) {
-        showAlert(title: "Delete", message: "Are you sure you want to delete all your favourite GITHUB users. This is permanent action and cannot be reversed.", positive: "Yes", negavite: "No") { [weak self] in
-            guard let self = self else { return }
-            let allUser = self.viewModel.allFavGitUser
-            if allUser.isEmpty {
-                self.showToast(message: "You don't have favourite users yet", font: .systemFont(ofSize: 14))
-            } else {
+        let allUser = self.viewModel.allFavGitUser
+        if allUser.isEmpty {
+            self.showToast(message: "You don't have favourite users yet", font: .systemFont(ofSize: 14))
+        } else {
+            showAlert(title: "Delete", message: "Are you sure you want to delete all your favourite GITHUB users. This is permanent action and cannot be reversed.", positive: "Yes", negavite: "No") { [weak self] in
+                guard let self = self else { return }
+                
                 self.viewModel.removeAllUser()
+                self.viewModel.fetchRecentData()
+                self.tableView.reloadData()
                 self.showToast(message: "You have deleted all your favourite GITHUB users", font: .systemFont(ofSize: 12))
             }
-        }
         cancel:  {
-           
+            
         }
+        }
+        
     }
 }
 
