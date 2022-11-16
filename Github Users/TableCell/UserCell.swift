@@ -19,6 +19,11 @@ class UserCell: UITableViewCell {
     var userImageView = UIImageView()
     var userNameLabel = UILabel.infoLabel(text: "UserName: ", fontSize: 16)
     var userNameText = UILabel.textLabel(fontSize: 16)
+    var emailLabel = UILabel.infoLabel(text: "Email", fontSize: 16)
+    var emailText = UILabel.textLabel(fontSize: 16)
+    
+    var ageLabel = UILabel.infoLabel(text: "Age", fontSize: 16)
+    var ageText = UILabel.textLabel(fontSize: 16)
     
     var userTypeLabel = UILabel.infoLabel(text: "UserType: ", fontSize: 16)
     var userTypeText = UILabel.textLabel(fontSize: 16)
@@ -28,8 +33,17 @@ class UserCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(mainView)
+        backgroundColor = .systemBackground
         
+//        mainView.clipsToBounds = true
         setupUI()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        mainView.layer.cornerRadius = bgView.bounds.height * 0.5
+        userImageView.cornerRadius = bgView.bounds.height * 0.7 * 0.5
+        userImageView.clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {
@@ -48,6 +62,7 @@ class UserCell: UITableViewCell {
         setupUserNameText()
         setupUserTypeLabel()
         setupUserTypeText()
+        setupEmailLabel()
         
     }
     
@@ -55,17 +70,17 @@ class UserCell: UITableViewCell {
         mainView.setCenterAnchor(vertical: centerYAnchor, horizontal: centerXAnchor, height: heightAnchor, heightMultiplier: 0.8, width: widthAnchor, widthMultiplier: 0.9)
         mainView.addSubview(bgView)
         bgView.pin(to: mainView)
-        [userImageView, userNameLabel, userNameText, userTypeLabel, userTypeText].forEach { newView in
+        [userImageView, userNameLabel, userNameText, userTypeLabel, userTypeText, emailLabel, emailText, ageLabel, ageText ].forEach { newView in
             bgView.addSubview(newView)
         }
+        mainView.backgroundColor = .systemBackground
     }
     
     private func setupImageView() {
         userImageView.setCenterAnchor(vertical: bgView.centerYAnchor, horizontal: nil, height: bgView.heightAnchor, heightMultiplier: 0.7, width: bgView.heightAnchor, widthMultiplier: 0.7)
         userImageView.image = UIImage(named: "default")
         userImageView.setViewConstraints(top: nil, right: nil, bottom: nil, left: bgView.leadingAnchor, paddingLeft: 10)
-        userImageView.cornerRadius = 42
-        userImageView.clipsToBounds = true
+        
     }
     
     private func setupUserNameLabel() {
@@ -82,6 +97,15 @@ class UserCell: UITableViewCell {
     
     private func setupUserTypeText() {
         userTypeText.setViewConstraints(top: userNameText.bottomAnchor, right: nil, bottom: nil, left: userTypeLabel.trailingAnchor, paddingTop: 10, paddingLeft: 10)
+    }
+    private func setupEmailLabel() {
+        emailLabel.setViewConstraints(top: userTypeLabel.bottomAnchor, right: userTypeLabel.trailingAnchor, bottom: nil, left: userTypeLabel.leadingAnchor, paddingTop: 10)
+        
+        emailText.setViewConstraints(top: emailLabel.topAnchor, right: nil, bottom: emailLabel.bottomAnchor, left: userTypeText.leadingAnchor)
+        
+        ageLabel.setViewConstraints(top: emailLabel.bottomAnchor, right: emailLabel.trailingAnchor, bottom: nil, left: emailLabel.leadingAnchor, paddingTop: 10)
+        
+        ageText.setViewConstraints(top: ageLabel.topAnchor, right: nil, bottom: ageLabel.bottomAnchor, left: emailText.leadingAnchor)
     }
     func configure(with userName: String,_ userType: String) {
         userNameText.text = userCellViewModel?.userData?.username ?? ""

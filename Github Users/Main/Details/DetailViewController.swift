@@ -52,7 +52,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         setupUI()
         setupBarButton()
         detailViewModel?.getSavedData()
@@ -78,6 +78,7 @@ class DetailViewController: UIViewController {
         guard let userData = detailViewModel?.userDetail else {
             return
         }
+        detailViewModel?.isClicked = detailViewModel?.userDetail.username.uppercased() ?? ""
         if isFav {
 //            detailViewModel?.userDetail.favourite = false
             self.showAlert(title: "Fav", message: "You have removed \(userData.username) from your favourite GITHUB users", positive: "Ok")

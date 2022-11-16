@@ -15,6 +15,7 @@ class DetailViewModel: ConvertToPesistenceModel {
     @Published var userDetail: UserDetailDataProtocol //= DetailModel(id: 0)
     private var subscriptions: Set<AnyCancellable> = Set<AnyCancellable>()
     let userDetailService: GithubUserDetailAPIProtocol = UserDetailService()
+    @Published var isClicked: String = ""
     
     private let userStorage: PersistenceService = FavGithubUser()
     

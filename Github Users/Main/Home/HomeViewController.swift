@@ -13,6 +13,8 @@ class HomeViewController: UIViewController {
     private lazy var tableView = UITableView.genericTableView(cell: UserCell.self, identifier: UserCell.identifier)
     private let viewModel = HomeViewModel()
     private var cancellables = Set<AnyCancellable>()
+    var detailViewModel: DetailViewModel?
+    var detailVC: DetailViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,11 +25,19 @@ class HomeViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-        
-        
-            
-        
         // Do any additional setup after loading the view.
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        detailVC?.detailViewModel?.$isClicked
+            .receive(on: RunLoop.main)
+            .sink { [weak self] userName in
+                self?.navigationItem.title = userName
+                print("The value is \(userName)")
+            }
+            .store(in: &cancellables)
     }
     
     override func viewDidLayoutSubviews() {
@@ -66,16 +76,18 @@ extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
 //        var endpoint: String
-        let detailVC = DetailViewController()
+        detailVC = DetailViewController()
         let model = self.viewModel.userProfiles[indexPath.row]
         let endpoint = model.userInfo ?? ""
         //        let picData = viewModel.userCellViewModels[indexPath.row].image
         
         let userDetail = DetailModel(id: model.id, username: model.username ?? "", avatar: "", userType: model.userType ?? "", userInfo: model.userInfo ?? "", location: "", fullName: "", company: "", bio: "", email: "", twitter: "", favourite: false)
-        detailVC.detailViewModel = DetailViewModel(endPoint: endpoint, user: userDetail)
-        detailVC.imageLoader = UserCellImageDownloader(model: UserModel(id: model.id, username: model.username, avatar: model.avatar, userType: model.userType, userInfo: model.userInfo))
+        detailViewModel =  DetailViewModel(endPoint: endpoint, user: userDetail)
+        detailVC?.detailViewModel = DetailViewModel(endPoint: endpoint, user: userDetail)
+        detailVC?.imageLoader = UserCellImageDownloader(model: UserModel(id: model.id, username: model.username, avatar: model.avatar, userType: model.userType, userInfo: model.userInfo))
+            
 //        detailVC.userProfilePic.image = picData
-        self.navigationController?.pushViewController(detailVC, animated: true)
+        self.navigationController?.pushViewController(detailVC ?? UIViewController(), animated: true)
     }
 }
 
